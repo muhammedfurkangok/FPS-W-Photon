@@ -18,7 +18,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         
-        Debug.Log("Connected to Master");
+        Debug.Log("Connected to Server");
         
         PhotonNetwork.JoinLobby();
     }
@@ -26,6 +26,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
+        
+        Debug.Log("Joined Lobby");
 
         PhotonNetwork.JoinOrCreateRoom("test", null, null);
     }
@@ -34,7 +36,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         
+        Debug.Log("Joined Room");
+        
         GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
+        _player.GetComponent<PlayerSetup>().IsLocalPlayer();    
         
       
     }
