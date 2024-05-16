@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -36,6 +33,11 @@ public class PlayerMovement : MonoBehaviour
     
     sprinting = Input.GetButton("Sprint");
     jumping = Input.GetButtonDown("Jump");
+  }
+
+  private void OnTriggerStay(Collider other)
+  {
+    grounded = true;
   }
   private void FixedUpdate()
   {
@@ -73,10 +75,7 @@ public class PlayerMovement : MonoBehaviour
     grounded = false;
   }
 
-  private void OnTriggerStay(Collider other)
-  {
-    grounded = true;
-  }
+ 
 
   private Vector3 CalculateMovement(float _speed)
   {
@@ -103,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
     {
       return new Vector3();
     }
+    
   }
- 
+
 }

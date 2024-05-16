@@ -14,6 +14,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
@@ -32,15 +33,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom("test", null, null);
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
         
         Debug.Log("Joined Room");
         
-        GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
-        _player.GetComponent<PlayerSetup>().IsLocalPlayer();    
-        
       
+        
+            GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
+            _player.GetComponent<PlayerSetup>().IsLocalPlayer();    
+        
     }
 }
