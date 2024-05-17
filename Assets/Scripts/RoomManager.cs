@@ -9,10 +9,19 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public static RoomManager Instance;
     
     public GameObject player;
+    
     [Space]
-    public Transform spawnPoint;
+    public Transform[] spawnPoints;
+    
     [Space]
     public GameObject roomCamera;
+
+    [Space]
+    public GameObject nickNameScreen;
+    public GameObject connectingUI;
+    
+
+    private string nickname = "unnamed";
 
     private void Awake()
     {
@@ -26,9 +35,22 @@ public class RoomManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
+
+    public void ChangeNickname(string _nickname)
+    {
+        nickname = _nickname;
+    }
+  
+    public void JoinRoomButtonPressed()
     {
         PhotonNetwork.ConnectUsingSettings();
+        
+        nickNameScreen.SetActive(false);
+        connectingUI.SetActive(true);
+    }
+    private void Start()
+    {
+        
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
@@ -65,9 +87,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void SpawnPlayer()
     {
+        Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+        
         
         GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
         _player.GetComponent<PlayerSetup>().IsLocalPlayer();    
-        _player.GetComponent<HealthManager>().isLocalPlayer = true;    
+        _player.GetComponent<HealthManager>().isLocalPlayer = true;  
+        
+        _player.GetComponent<PhotonView>().RPC("SetNickname", RpcTarget.AllBuffered, nickname);
     }
 }
