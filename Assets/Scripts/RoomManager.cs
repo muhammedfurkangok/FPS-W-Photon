@@ -6,9 +6,26 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
+    public static RoomManager Instance;
+    
     public GameObject player;
     [Space]
     public Transform spawnPoint;
+    [Space]
+    public GameObject roomCamera;
+
+    private void Awake()
+    {
+        if (Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -40,10 +57,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
         
         Debug.Log("Joined Room");
         
-      
+        roomCamera.SetActive(false);
+        SpawnPlayer();
+
         
-            GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
-            _player.GetComponent<PlayerSetup>().IsLocalPlayer();    
+    }
+
+    public void SpawnPlayer()
+    {
         
+        GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
+        _player.GetComponent<PlayerSetup>().IsLocalPlayer();    
+        _player.GetComponent<HealthManager>().isLocalPlayer = true;    
     }
 }

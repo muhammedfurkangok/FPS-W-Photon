@@ -23,6 +23,6 @@ public class WaponBehaviourController : MonoBehaviour
         
         Vector3 targetPosition = new Vector3(-mouseInput.x, -mouseInput.y, 0);
         
-        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * smoothing);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition + origin, Time.deltaTime * smoothing);
     }
 }

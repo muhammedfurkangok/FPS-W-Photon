@@ -11,6 +11,7 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthBar;
     
     public int health = 100;
+    public bool isLocalPlayer;
 
     [PunRPC]
     public void TakeDamage(int damage)
@@ -21,6 +22,9 @@ public class HealthManager : MonoBehaviour
         
         if (health <= 0)
         {
+            if (isLocalPlayer)
+             RoomManager.Instance.SpawnPlayer();
+            
             Destroy(gameObject);
         }
     }
