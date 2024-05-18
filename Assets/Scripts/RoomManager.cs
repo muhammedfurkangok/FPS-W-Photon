@@ -24,6 +24,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private string nickname = "unnamed";
 
+    public string roomNameToJoin = "test";
+
     [HideInInspector]
     public int kills = 0; 
     [HideInInspector]
@@ -49,35 +51,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
   
     public void JoinRoomButtonPressed()
     {
-        PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, null, null);
         
         nickNameScreen.SetActive(false);
         connectingUI.SetActive(true);
     }
-    private void Start()
-    {
-        
-    }
-    
-    // ReSharper disable Unity.PerformanceAnalysis
-    public override void OnConnectedToMaster()
-    {
-        base.OnConnectedToMaster();
-        
-        Debug.Log("Connected to Server");
-        
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        base.OnJoinedLobby();
-        
-        Debug.Log("Joined Lobby");
-
-        PhotonNetwork.JoinOrCreateRoom("test", null, null);
-    }
-    
+  
     // ReSharper disable Unity.PerformanceAnalysis
     public override void OnJoinedRoom()
     {
