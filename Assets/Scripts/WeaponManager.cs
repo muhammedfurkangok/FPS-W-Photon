@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using TMPro;
 using UnityEngine;
 
@@ -116,6 +117,12 @@ public class WeaponManager : MonoBehaviour
        {
            if(hit.transform.gameObject.GetComponent<HealthManager>())
            {
+               //PhotonNetwork.LocalPlayer.AddScore(10);
+               if(damage > hit.transform.gameObject.GetComponent<HealthManager>().health)
+               {
+                   PhotonNetwork.LocalPlayer.AddScore(100);
+               }
+               
                hit.collider.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, damage);
            }
        }
