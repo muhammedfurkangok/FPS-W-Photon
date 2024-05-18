@@ -20,6 +20,7 @@ public class LeaderboardManager : MonoBehaviour
     [Space]
     public TextMeshProUGUI[] scoreTexts;
     public TextMeshProUGUI[] nicknameTexts;
+    public TextMeshProUGUI[] kdTexts;
 
     private void Start()
     {
@@ -50,7 +51,19 @@ public class LeaderboardManager : MonoBehaviour
             scoreTexts[i].text = player.GetScore().ToString();
             
             i++;
+
+            if (player.CustomProperties["kills"] != null)
+            {
+                kdTexts[i].text = player.CustomProperties["kills"] +  "/" + player.CustomProperties["deaths"];
+            }
+            else
+            {
+                kdTexts[i].text = "0/0";
+            
+            }
         }
+        
+       
         
     }
     private void Update()

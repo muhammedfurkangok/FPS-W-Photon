@@ -23,7 +23,14 @@ public class HealthManager : MonoBehaviour
         if (health <= 0)
         {
             if (isLocalPlayer)
-             RoomManager.Instance.SpawnPlayer();
+            {
+                RoomManager.Instance.SpawnPlayer();
+                RoomManager.Instance.deaths++;
+                RoomManager.Instance.SetHashes();
+            }
+                
+            
+         
             
             Destroy(gameObject);
         }

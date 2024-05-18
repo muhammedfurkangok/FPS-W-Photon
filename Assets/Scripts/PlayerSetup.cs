@@ -4,6 +4,7 @@ using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
+
 public class PlayerSetup : MonoBehaviour
 {
     
@@ -26,4 +27,6 @@ public class PlayerSetup : MonoBehaviour
         nickname = _nickname;
         nicknameText.text = nickname;
     }
+    
+   
 }

@@ -120,6 +120,8 @@ public class WeaponManager : MonoBehaviour
                //PhotonNetwork.LocalPlayer.AddScore(10);
                if(damage > hit.transform.gameObject.GetComponent<HealthManager>().health)
                {
+                   RoomManager.Instance.kills++;
+                   RoomManager.Instance.SetHashes();
                    PhotonNetwork.LocalPlayer.AddScore(100);
                }
                
